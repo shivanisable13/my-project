@@ -2,8 +2,6 @@ pipeline {
     agent any
 
     stages {
-       
-
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t php-app .'
@@ -12,7 +10,7 @@ pipeline {
 
         stage('Deploy with Docker Compose') {
             steps {
-                bat 'docker-compose up -d --build'
+                bat 'docker compose up -d --build'
             }
         }
     }

@@ -2,15 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Check') {
+        stage('Checkout') {
             steps {
-                checkout scm
+                git 'https://github.com/USERNAME/REPO_NAME.git'
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Build stage running'
+                bat 'docker build -t php-app .'
+            }
+        }
+
+        stage('Deploy with Docker Compose') {
+            steps {
+                bat 'docker-compose up -d --build'
             }
         }
     }
